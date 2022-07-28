@@ -1,0 +1,61 @@
+:root {
+    /* Lucario Color Palete */
+    --black: #393939;
+    --white: #ffffff;
+    --first: #4a9cee;
+    --second: #838383;
+    --third: #e6e69c;
+    --forth: #104a7b;
+    --fifth: #29739c;
+}
+    
+body {
+    font-family: 'Fredoka One', cursive;
+    background-color: var(--first);
+}
+
+#select-pet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    color: var(--white);
+    font-size: 32px;
+}
+
+.subtitle {
+    color: var(--white);
+    font-size: 20px;
+}
+
+
+
+.cards {
+    display: flex;
+    gap: 10px;
+}
+
+.card-mokepon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 180px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--forth);
+    color: var(--white);
+}
+
+.card-mokepon img {
+    width: 80px;
+}
+    
+input {
+    display: none;
+}

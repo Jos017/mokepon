@@ -5,21 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKEPON!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <h1>MOKEPON! 🔥💧🌱</h1>
+    <h1 class="title">MOKEPON! 🔥💧🌱</h1>
     <section id="select-pet">
-        <h2>Select your pet:</h2>
-        <label for="hipodoge">Hipodoge</label>
-        <input type="radio" name="pet" id="hipodoge"/>
-        <label for="capipepo">Capipepo</label>
-        <input type="radio" name="pet" id="capipepo" />
-        <label for="ratigueya">Ratigueya</label>
-        <input type="radio" name="pet" id="ratigueya" />
+        <h2 class="subtitle">Select your pet:</h2>
+        <div class="cards">
+            <label class="card-mokepon" for="hipodoge">
+                <p>Hipodoge</p>
+                <img src="./assets/images/mokepons_mokepon_hipodoge_attack.webp" alt="hipodoge" />
+            </label>
+            <input type="radio" name="pet" id="hipodoge"/>
+            <label class="card-mokepon" for="capipepo">
+                <p>Capipepo</p>
+                <img src="./assets/images/mokepons_mokepon_capipepo_attack.webp" alt="capipepo" />
+            </label>
+            <input type="radio" name="pet" id="capipepo" />
+            <label class="card-mokepon" for="ratigueya">
+                <p>Ratigueya</p>
+                <img src="./assets/images/mokepons_mokepon_ratigueya_attack.webp" alt="ratigueya" />
+            </label>
+            <input type="radio" name="pet" id="ratigueya" />
+        </div>
         <button id="button-pet">Select</button>
     </section>
     <section id="select-attack">
-        <h2>Select your attack:</h2>
+        <h2 class="subtitle">Select your attack:</h2>
         <p>Your pet <span id="pet-player"></span> has <span id="lives-player">3</span> lives</p>
         <p>Enemy's pet <span id="pet-enemy"></span> has <span id="lives-enemy">3</span> lives</p>
         <p>
