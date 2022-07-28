@@ -7,11 +7,19 @@
     --third: #e6e69c;
     --forth: #104a7b;
     --fifth: #29739c;
+    /* Cards Colors */
+    --fire: #b12533;
+    --fireSecond: #c93c23;
+    --plant: #457458;
+    --plantSecond:#489754;
+    --water: #4b3a9a;
+    --waterSecond:#76bfe7;
+    
 }
     
 body {
-    font-family: 'Fredoka One', cursive;
-    background-color: var(--first);
+    font-family: 'Odibee Sans', cursive;
+    background-color: var(--black);
 }
 
 #select-pet {
@@ -41,21 +49,71 @@ body {
 
 .card-mokepon {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    width: 180px;
-    height: 100px;
+    row-gap: 10px;
+    width: 150px;
+    height: 180px;
     padding: 10px;
     border-radius: 20px;
     background-color: var(--forth);
     color: var(--white);
 }
-
+.card-mokepon figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 110px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
 .card-mokepon img {
-    width: 80px;
+    width: 130px;
+}
+.card-mokepon p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 25px;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.card-mokepon--fire {
+    background-color: var(--fire);
+}
+.card-mokepon--fire figure,
+.card-mokepon--fire p {
+    background-color: var(--fireSecond);
+}
+.card-mokepon--plant {
+    background-color: var(--plant);
+}
+.card-mokepon--plant figure,
+.card-mokepon--plant p {
+    background-color: var(--plantSecond);
+}
+.card-mokepon--water {
+    background-color: var(--water);
+}
+.card-mokepon--water figure,
+.card-mokepon--water p {
+    background-color: var(--waterSecond);
 }
     
 input {
     display: none;
+}
+
+#button-pet {
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: var(--third);
+    font-family: inherit;
+    font-size: 16px;
+    margin: 10px 0;
 }
