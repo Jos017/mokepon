@@ -10,10 +10,13 @@
     /* Cards Colors */
     --fire: #b12533;
     --fireSecond: #c93c23;
+    --fireThird: #f47930;
     --plant: #457458;
     --plantSecond:#489754;
+    --plantThird: #99c35f;
     --water: #4b3a9a;
     --waterSecond:#76bfe7;
+
     
 }
     
@@ -55,10 +58,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     row-gap: 10px;
-    width: 130px;
-    height: 160px;
+    width: 150px;
+    height: 180px;
     padding: 10px;
     border-radius: 20px;
     background-color: var(--forth);
@@ -117,11 +120,11 @@ input:checked + .card-mokepon--water {
 }
 
 input:checked + .card-mokepon--plant {
-    border: 3px solid var(--plantSecond);
+    border: 3px solid var(--plantThird);
 }
 
 input:checked + .card-mokepon--fire {
-    border: 3px solid var(--fireSecond);
+    border: 3px solid var(--fireThird);
 }
 
 #button-pet {
