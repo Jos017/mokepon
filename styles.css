@@ -43,10 +43,10 @@ body {
     font-size: 20px;
 }
 
-
-
 .cards {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
 }
 
@@ -55,10 +55,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     row-gap: 10px;
-    width: 150px;
-    height: 180px;
+    width: 130px;
+    height: 160px;
     padding: 10px;
     border-radius: 20px;
     background-color: var(--forth);
@@ -110,6 +110,18 @@ body {
     
 input {
     display: none;
+}
+
+input:checked + .card-mokepon--water {
+    border: 3px solid var(--waterSecond);
+}
+
+input:checked + .card-mokepon--plant {
+    border: 3px solid var(--plantSecond);
+}
+
+input:checked + .card-mokepon--fire {
+    border: 3px solid var(--fireSecond);
 }
 
 #button-pet {
