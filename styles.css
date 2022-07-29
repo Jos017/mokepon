@@ -151,3 +151,26 @@ input {
     grid-template-columns: 100px 100px;
     justify-items: center;
 }
+
+.attacks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lives-player,
+#lives-enemy {
+    margin-bottom: 0;
+    font-size: 32px;
+}
+
+@media (max-width: 360px) {
+    .cards {
+        flex-direction: column;
+    }
+    .attack-button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
