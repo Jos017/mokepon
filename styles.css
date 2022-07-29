@@ -18,6 +18,9 @@
 }
     
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Odibee Sans', cursive;
     background-color: var(--black);
 }
@@ -118,9 +121,17 @@ input {
     margin: 10px 0;
 }
 
-#select-attack {
+#select-attack,
+#messages {
     flex-direction: column;
     align-items: center;
+}
+#messages {
+    width: 280px;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--first);
 }
 .button-attack {
     width: 100px;
@@ -129,4 +140,14 @@ input {
     background-color: var(--third);
     font-family: inherit;
     font-size: 16px;
+}
+#button-restart {
+    border: none;
+    background-color: var(--first);
+    color: var(--white);
+    font-family: inherit;
+}
+#battles {
+    grid-template-columns: 100px 100px;
+    justify-items: center;
 }

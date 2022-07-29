@@ -6,8 +6,12 @@ let enemyLives = 3;
 function startGame() {
     const sectionSelectAttack = document.getElementById('select-attack');
     const sectionRestart = document.getElementById('restart');
+    const sectionMessages = document.getElementById('messages');
+    const sectionBattles = document.getElementById('battles');
     sectionSelectAttack.style.display = 'none';
     sectionRestart.style.display = 'none';
+    sectionMessages.style.display = 'none';
+    sectionBattles.style.display = 'none';
     
     const buttonPlayerPet = document.getElementById('button-pet');
     buttonPlayerPet.addEventListener('click', selectPlayerPet);
@@ -26,8 +30,12 @@ function startGame() {
 function selectPlayerPet() {
     const sectionSelectAttack = document.getElementById('select-attack');
     const sectionSelectPet = document.getElementById('select-pet');
+    const sectionMessages = document.getElementById('messages');
+    const sectionBattles = document.getElementById('battles')
     sectionSelectAttack.style.display = 'flex';
     sectionSelectPet.style.display = 'none';
+    sectionMessages.style.display = 'flex';
+    sectionBattles.style.display = 'grid';
     
     const inputHipodoge = document.getElementById('hipodoge');
     const inputCapipepo = document.getElementById('capipepo');
@@ -43,7 +51,9 @@ function selectPlayerPet() {
     } else {
         alert('Select a pet');
         sectionSelectAttack.style.display = 'none';
-        sectionSelectPet.style.display = 'block';
+        sectionSelectPet.style.display = 'flex';
+        sectionMessages.style.display = 'none';
+        sectionBattles.style.display = 'none';
     }
     
     selectEnemyPet();
@@ -87,20 +97,29 @@ function randEnemyAttack() {
     battle();
 }
 
-function createMessage(result) {
-    const messages = document.getElementById('messages');
-    let parrafo = document.createElement('p');
-    parrafo.innerHTML = `Your pet used a ${playerAttack} attack, the enemy's pet used a ${enemyAttack} attack - ${result}`;
-    messages.appendChild(parrafo);
+function createMessage(battleResult) {
+    const result = document.getElementById('result');
+    const resultPlayerAttack = document.getElementById('attack-player');
+    const resultEnemyAttack = document.getElementById('attack-enemy');
+    
+    result.innerHTML = battleResult ;
+    resultPlayerAttack.innerHTML = enemyAttack;
+    resultEnemyAttack.innerHTML = playerAttack;
+    // const messages = document.getElementById('messages');
+    // let parrafo = document.createElement('p');
+    // parrafo.innerHTML = `Your pet used a ${playerAttack} attack, the enemy's pet used a ${enemyAttack} attack - ${battleResult}`;
+    // messages.appendChild(parrafo);
 }
 
-function createFinalMessage(result) {
+function createFinalMessage(battleResult) {
     const sectionRestart = document.getElementById('restart');
     sectionRestart.style.display = 'block';
-    const messages = document.getElementById('messages');
-    let parrafo = document.createElement('p');
-    parrafo.innerHTML = result;
-    messages.appendChild(parrafo);
+    const result = document.getElementById('result');
+    result.innerHTML = battleResult;
+    // const messages = document.getElementById('messages');
+    // let parrafo = document.createElement('p');
+    // parrafo.innerHTML = battleResult;
+    // messages.appendChild(parrafo);
     
     const buttonFire = document.getElementById('button-fire');
     const buttonWater = document.getElementById('button-water');
