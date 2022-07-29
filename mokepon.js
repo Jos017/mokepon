@@ -11,6 +11,7 @@ const buttonWater = document.getElementById('button-water');
 const buttonPlant = document.getElementById('button-plant');
 const buttonRestart = document.getElementById('button-restart');
 
+const cardsContainer = document.getElementById('cards');
 const inputHipodoge = document.getElementById('hipodoge');
 const inputCapipepo = document.getElementById('capipepo');
 const inputRatigueya = document.getElementById('ratigueya');
@@ -22,25 +23,27 @@ const resultEnemyAttack = document.getElementById('attack-enemy');
 const textPlayerLives = document.getElementById('lives-player');
 const textEnemyLives = document.getElementById('lives-enemy');
 
+let mokepons = [];
+let mokeponsOptions;
 let playerAttack;
 let enemyAttack;
 let playerLives = 3;
 let enemyLives = 3;
-let mokepons = [];
 
 //Creating Mokepon Class
 class Mokepon {
-    constructor(name, img, hp) {
+    constructor(name, type, img, hp) {
         this.name = name;
+        this.type = type;
         this.img = img;
         this.hp = hp;
         this.attacks = [];
     }
 }
 
-let hipodoge = new Mokepon('Hipodoge', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
-let capipepo = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
-let ratigueya = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
+let hipodoge = new Mokepon('hipodoge', 'water', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
+let capipepo = new Mokepon('capipepo', 'plant', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
+let ratigueya = new Mokepon('ratigueya', 'fire', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
 
 hipodoge.attacks.push( 
     {name: '💧', id: 'button-water'},
@@ -73,6 +76,18 @@ function startGame() {
     restart.style.display = 'none';
     sectionMessages.style.display = 'none';
     sectionBattles.style.display = 'none';
+
+    mokepons.forEach(mokepon => {
+        mokeponsOptions = `
+            <input type="radio" name="pet" id="${mokepon.name}"/>
+            <label class="card-mokepon card-mokepon--${mokepon.type}" for="${mokepon.name}">
+                <figure>
+                    <img src="${mokepon.img}" alt="${mokepon.name}" />
+                </figure>
+                <p>${mokepon.name.toUpperCase()}</p>
+            </label>`;
+        cardsContainer.innerHTML += mokeponsOptions;
+    });
     
     buttonPlayerPet.addEventListener('click', selectPlayerPet);
     buttonFire.addEventListener('click', attackFire);
