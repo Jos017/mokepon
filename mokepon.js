@@ -34,12 +34,37 @@ class Mokepon {
         this.name = name;
         this.img = img;
         this.hp = hp;
+        this.attacks = [];
     }
 }
 
 let hipodoge = new Mokepon('Hipodoge', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
 let capipepo = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
 let ratigueya = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
+
+hipodoge.attacks.push( 
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🔥', id: 'button-fire'}
+);
+
+capipepo.attacks.push( 
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'}
+);
+
+ratigueya.attacks.push( 
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'}
+);
 
 mokepons.push(hipodoge, capipepo, ratigueya);
 
