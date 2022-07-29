@@ -27,6 +27,19 @@ let enemyAttack;
 let playerLives = 3;
 let enemyLives = 3;
 
+//Creating Mokepon Class
+class Mokepon {
+    constructor(name, img, hp) {
+        this.name = name;
+        this.img = img;
+        this.hp = hp;
+    }
+}
+
+let hipodoge = new Mokepon('Hipodoge', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
+let capipepo = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
+let ratigueya = new Mokepon('Capipepo', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
+
 function startGame() {
     sectionSelectAttack.style.display = 'none';
     restart.style.display = 'none';
