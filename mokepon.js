@@ -26,7 +26,7 @@ function startGame() {
 function selectPlayerPet() {
     const sectionSelectAttack = document.getElementById('select-attack');
     const sectionSelectPet = document.getElementById('select-pet');
-    sectionSelectAttack.style.display = 'block';
+    sectionSelectAttack.style.display = 'flex';
     sectionSelectPet.style.display = 'none';
     
     const inputHipodoge = document.getElementById('hipodoge');

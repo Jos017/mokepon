@@ -41,17 +41,21 @@
     </section>
     <section id="select-attack">
         <h2 class="subtitle">Select your attack:</h2>
-        <p>Your pet <span id="pet-player"></span> has <span id="lives-player">3</span> lives</p>
-        <p>Enemy's pet <span id="pet-enemy"></span> has <span id="lives-enemy">3</span> lives</p>
-        <p>
-            <button id="button-fire">Fire 🔥</button>
-            <button id="button-water">Water 💧</button>
-            <button id="button-plant">Plant 🌱</button>
-        </p>
-    </section>
-    <section id="messages"></section>
-    <section id="restart">
-        <button id="button-restart">Restart</button>
+        <div>
+            <button id="button-fire" class="button-attack">Fire 🔥</button>
+            <button id="button-water" class="button-attack">Water 💧</button>
+            <button id="button-plant" class="button-attack">Plant 🌱</button>
+        </div>
+        <div>
+            <section id="messages"></section>
+            <section id="restart">
+                <button id="button-restart">Restart</button>
+            </section>
+        </div>
+        <div>
+            <p>Your pet <span id="pet-player"></span> has <span id="lives-player">3</span> lives</p>
+            <p>Enemy's pet <span id="pet-enemy"></span> has <span id="lives-enemy">3</span> lives</p>
+        </div>
     </section>
     <script src="./mokepon.js"></script>
 </body>
