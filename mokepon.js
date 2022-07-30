@@ -12,9 +12,6 @@ const buttonPlant = document.getElementById('button-plant');
 const buttonRestart = document.getElementById('button-restart');
 
 const cardsContainer = document.getElementById('cards');
-const inputHipodoge = document.getElementById('hipodoge');
-const inputCapipepo = document.getElementById('capipepo');
-const inputRatigueya = document.getElementById('ratigueya');
 const namePlayerPet = document.getElementById('pet-player');
 const nameEnemyPet = document.getElementById('pet-enemy');
 const result = document.getElementById('result');
@@ -27,6 +24,9 @@ let mokepons = [];
 let mokeponsOptions;
 let playerAttack;
 let enemyAttack;
+let inputHipodoge;
+let inputCapipepo;
+let inputRatigueya;
 let playerLives = 3;
 let enemyLives = 3;
 
@@ -87,6 +87,10 @@ function startGame() {
                 <p>${mokepon.name.toUpperCase()}</p>
             </label>`;
         cardsContainer.innerHTML += mokeponsOptions;
+
+        inputHipodoge = document.getElementById('hipodoge');
+        inputCapipepo = document.getElementById('capipepo');
+        inputRatigueya = document.getElementById('ratigueya');
     });
     
     buttonPlayerPet.addEventListener('click', selectPlayerPet);
