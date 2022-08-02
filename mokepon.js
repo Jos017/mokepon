@@ -6,14 +6,12 @@ const sectionBattles = document.getElementById('battles');
 const restart = document.getElementById('restart');
 
 const buttonPlayerPet = document.getElementById('button-pet');
-const buttonFire = document.getElementById('button-fire');
-const buttonWater = document.getElementById('button-water');
-const buttonPlant = document.getElementById('button-plant');
 const buttonRestart = document.getElementById('button-restart');
 
 const cardsContainer = document.getElementById('cards');
 const namePlayerPet = document.getElementById('pet-player');
 const nameEnemyPet = document.getElementById('pet-enemy');
+const attacksContainer = document.getElementById('attacks-container');
 const result = document.getElementById('result');
 const resultPlayerAttack = document.getElementById('attack-player');
 const resultEnemyAttack = document.getElementById('attack-enemy');
@@ -27,6 +25,12 @@ let enemyAttack;
 let inputHipodoge;
 let inputCapipepo;
 let inputRatigueya;
+let playerPet;
+let mokeponAttacks;
+let buttonFire;
+let buttonWater;
+let buttonPlant;
+let buttons;
 let playerLives = 3;
 let enemyLives = 3;
 
@@ -94,9 +98,6 @@ function startGame() {
     });
     
     buttonPlayerPet.addEventListener('click', selectPlayerPet);
-    buttonFire.addEventListener('click', attackFire);
-    buttonWater.addEventListener('click', attackWater);
-    buttonPlant.addEventListener('click', attackPlant);
     buttonRestart.addEventListener('click', restartGame);
 }
 
@@ -107,11 +108,14 @@ function selectPlayerPet() {
     sectionBattles.style.display = 'grid';
     
     if (inputHipodoge.checked) {
-        namePlayerPet.innerHTML = 'Hipodoge';
+        namePlayerPet.innerHTML = titleCase(inputHipodoge.id);
+        playerPet = inputHipodoge.id;
     } else if (inputCapipepo.checked) {
-        namePlayerPet.innerHTML = 'Capipepo';
+        namePlayerPet.innerHTML = titleCase(inputCapipepo.id);
+        playerPet = inputCapipepo.id;
     } else if (inputRatigueya.checked) {
-        namePlayerPet.innerHTML = 'Ratigueya';
+        namePlayerPet.innerHTML = titleCase(inputRatigueya.id);
+        playerPet = inputRatigueya.id;
     } else {
         alert('Select a pet');
         sectionSelectAttack.style.display = 'none';
@@ -120,18 +124,40 @@ function selectPlayerPet() {
         sectionBattles.style.display = 'none';
     }
     
+    getAttacks(playerPet);
     selectEnemyPet();
 }
 
+function getAttacks(playerPet) {
+    let attacks;
+    mokepons.forEach((mokepon) => { 
+        if (playerPet === mokepon.name) {
+            attacks = mokepon.attacks;
+        }
+    })
+    console.log(attacks);
+    showAttacks(attacks);
+}
+
+function showAttacks(attacks) {
+    attacks.forEach((attack) => {
+        mokeponAttacks = `
+            <button id="${attack.id}" class="button-attack">${attack.name}</button>
+        `;
+        attacksContainer.innerHTML += mokeponAttacks;
+    });
+    buttonFire = document.getElementById('button-fire');
+    buttonWater = document.getElementById('button-water');
+    buttonPlant = document.getElementById('button-plant');
+    buttons = document.querySelectorAll('.button-attack');
+    buttonFire.addEventListener('click', attackFire);
+    buttonWater.addEventListener('click', attackWater);
+    buttonPlant.addEventListener('click', attackPlant);
+}
+
 function selectEnemyPet () {
-    let randPet = randNum(1, 3);
-    if (randPet == 1) {
-        nameEnemyPet.innerHTML = 'Hipodoge';
-    } else if (randPet == 2) {
-        nameEnemyPet.innerHTML = 'Capipepo';
-    } else if (randPet == 3) {
-        nameEnemyPet.innerHTML = 'Ratigueya';
-    }
+    let randPet = randNum(0, mokepons.length - 1);
+    nameEnemyPet.innerHTML = mokepons[randPet].name;
 }
 
 function attackFire() {
@@ -162,8 +188,8 @@ function randEnemyAttack() {
 
 function createMessage(battleResult) {
     result.innerHTML = battleResult ;
-    resultPlayerAttack.innerHTML = enemyAttack;
-    resultEnemyAttack.innerHTML = playerAttack;
+    resultPlayerAttack.innerHTML = playerAttack;
+    resultEnemyAttack.innerHTML = enemyAttack;
 }
 
 function createFinalMessage(battleResult) {
@@ -204,6 +230,11 @@ function randNum(min, max) {
 
 function restartGame() {
     location.reload();
+}
+
+function titleCase(str) {
+    let str2 = str[0].toUpperCase() + str.slice(1).toLowerCase();
+    return str2;
 }
 
 window.addEventListener('load', startGame);
