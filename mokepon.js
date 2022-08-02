@@ -20,16 +20,17 @@ const textEnemyLives = document.getElementById('lives-enemy');
 
 let mokepons = [];
 let mokeponsOptions;
-let playerAttack;
-let enemyAttack;
+let playerAttack = [];
+let enemyAttack = [];
+let enemyAttackArr = {};
 let inputHipodoge;
 let inputCapipepo;
 let inputRatigueya;
 let playerPet;
 let mokeponAttacks;
-let buttonFire;
-let buttonWater;
-let buttonPlant;
+// let buttonFire;
+// let buttonWater;
+// let buttonPlant;
 let buttons;
 let playerLives = 3;
 let enemyLives = 3;
@@ -142,47 +143,49 @@ function getAttacks(playerPet) {
 function showAttacks(attacks) {
     attacks.forEach((attack) => {
         mokeponAttacks = `
-            <button id="${attack.id}" class="button-attack">${attack.name}</button>
+            <button class="button-attack ${attack.id}">${attack.name}</button>
         `;
         attacksContainer.innerHTML += mokeponAttacks;
     });
-    buttonFire = document.getElementById('button-fire');
-    buttonWater = document.getElementById('button-water');
-    buttonPlant = document.getElementById('button-plant');
     buttons = document.querySelectorAll('.button-attack');
-    buttonFire.addEventListener('click', attackFire);
-    buttonWater.addEventListener('click', attackWater);
-    buttonPlant.addEventListener('click', attackPlant);
+}
+
+function attackSecuence() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            if (event.target.textContent === '🔥') {
+                playerAttack.push('FIRE');
+                console.log(playerAttack);
+                button.style.background = '#112f58';
+            } else if (event.target.textContent === '💧') {
+                playerAttack.push('WATER');
+                console.log(playerAttack);
+                button.style.background = '#112f58';
+            }
+            else if (event.target.textContent === '🌱') {
+                playerAttack.push('PLANT');
+                console.log(playerAttack);
+                button.style.background = '#112f58';
+            }
+            randEnemyAttack();   
+        });
+    });
 }
 
 function selectEnemyPet () {
     let randPet = randNum(0, mokepons.length - 1);
     nameEnemyPet.innerHTML = mokepons[randPet].name;
-}
-
-function attackFire() {
-    playerAttack = 'FIRE';
-    randEnemyAttack();
-}
-function attackWater() {
-    playerAttack = 'WATER';
-    randEnemyAttack();
-}
-function attackPlant() {
-    playerAttack = 'PLANT';
-    randEnemyAttack();
+    enemyAttackArr = Object.values(mokepons[randPet].attacks);
+    console.log(enemyAttackArr);
+    attackSecuence();
+    
 }
 
 function randEnemyAttack() {
-    let randAttack = randNum(1, 3);
-    if (randAttack == 1) {
-        enemyAttack = 'FIRE';
-    } else if (randAttack == 2) {
-        enemyAttack = 'WATER';
-    } else if (randAttack == 3) {
-        enemyAttack = 'PLANT';
-    }
+    let randAttack = randNum(1, enemyAttackArr.length);
     
+    enemyAttack.push(enemyAttackArr[randAttack].name);
+    console.log(enemyAttack);
     battle();
 }
 
