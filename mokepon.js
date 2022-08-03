@@ -15,14 +15,14 @@ const attacksContainer = document.getElementById('attacks-container');
 const result = document.getElementById('result');
 const resultPlayerAttack = document.getElementById('attack-player');
 const resultEnemyAttack = document.getElementById('attack-enemy');
-const textPlayerLives = document.getElementById('lives-player');
-const textEnemyLives = document.getElementById('lives-enemy');
+const textPlayerWins = document.getElementById('wins-player');
+const textEnemyWins = document.getElementById('wins-enemy');
 
 let mokepons = [];
 let mokeponsOptions;
 let playerAttack = [];
 let enemyAttack = [];
-let enemyAttackArr = {};
+let enemyAttackArr = [];
 let inputHipodoge;
 let inputCapipepo;
 let inputRatigueya;
@@ -32,8 +32,10 @@ let mokeponAttacks;
 // let buttonWater;
 // let buttonPlant;
 let buttons;
-let playerLives = 3;
-let enemyLives = 3;
+let indexPlayerAttack;
+let indexEnemyAttack;
+let playerWins = 0;
+let enemyWins = 0;
 
 //Creating Mokepon Class
 class Mokepon {
@@ -156,16 +158,16 @@ function attackSecuence() {
             if (event.target.textContent === '🔥') {
                 playerAttack.push('FIRE');
                 console.log(playerAttack);
-                button.style.background = '#112f58';
+                button.disabled = true;
             } else if (event.target.textContent === '💧') {
                 playerAttack.push('WATER');
                 console.log(playerAttack);
-                button.style.background = '#112f58';
+                button.disabled = true;
             }
             else if (event.target.textContent === '🌱') {
                 playerAttack.push('PLANT');
                 console.log(playerAttack);
-                button.style.background = '#112f58';
+                button.disabled = true;
             }
             randEnemyAttack();   
         });
@@ -174,7 +176,7 @@ function attackSecuence() {
 
 function selectEnemyPet () {
     let randPet = randNum(0, mokepons.length - 1);
-    nameEnemyPet.innerHTML = mokepons[randPet].name;
+    nameEnemyPet.innerHTML = titleCase(mokepons[randPet].name);
     enemyAttackArr = Object.values(mokepons[randPet].attacks);
     console.log(enemyAttackArr);
     attackSecuence();
@@ -182,47 +184,80 @@ function selectEnemyPet () {
 }
 
 function randEnemyAttack() {
-    let randAttack = randNum(1, enemyAttackArr.length);
-    
-    enemyAttack.push(enemyAttackArr[randAttack].name);
+    let randAttack = randNum(0, enemyAttackArr.length - 1);
+    if (enemyAttackArr[randAttack].name === '🔥') {
+        enemyAttack.push('FIRE');
+    } else if (enemyAttackArr[randAttack].name === '💧') {
+        enemyAttack.push('WATER');
+    } else if (enemyAttackArr[randAttack].name === '🌱') {
+        enemyAttack.push('PLANT');
+    }
     console.log(enemyAttack);
-    battle();
+    validateBattle();
+    // battle();
 }
 
 function createMessage(battleResult) {
+    let newPlayerAttack = document.createElement('p');
+    let newEnemyAttack = document.createElement('p');;
+    
     result.innerHTML = battleResult ;
-    resultPlayerAttack.innerHTML = playerAttack;
-    resultEnemyAttack.innerHTML = enemyAttack;
+    newPlayerAttack.innerHTML = indexPlayerAttack;
+    newEnemyAttack.innerHTML = indexEnemyAttack;
+
+    resultPlayerAttack.appendChild(newPlayerAttack);
+    resultEnemyAttack.appendChild(newEnemyAttack);
 }
 
 function createFinalMessage(battleResult) {
     restart.style.display = 'block';
     result.innerHTML = battleResult;
-    buttonFire.disabled = true;
-    buttonWater.disabled = true;
-    buttonPlant.disabled = true;
+    // buttonFire.disabled = true;
+    // buttonWater.disabled = true;
+    // buttonPlant.disabled = true;
+}
+
+function validateBattle() {
+    if (playerAttack.length === 5 && enemyAttack.length === 5){
+        battle();
+    }
+}
+
+function indexAttacks(player, enemy, playerResult, enemyResult) {
+    indexPlayerAttack = playerAttack[player] + ' ' + playerResult;
+    indexEnemyAttack = enemyAttack[enemy] + ' ' + enemyResult;
 }
 
 function battle() {
-    if (playerAttack === enemyAttack) {
-        createMessage(`It's a draw 😐`);
-    } else if ( (playerAttack === 'FIRE' && enemyAttack === 'PLANT') || (playerAttack === 'WATER' && enemyAttack === 'FIRE') || (playerAttack === 'PLANT' && enemyAttack === 'WATER')) {
-        enemyLives--;
-        textEnemyLives.innerHTML = enemyLives;
-        createMessage('You win 🥳');
-    } else {
-        playerLives--;
-        textPlayerLives.innerHTML = playerLives;
-        createMessage('You Lose 😢');
-    }
-
+    for (let index = 0; index < playerAttack.length; index++) {
+        
+        if (playerAttack[index] === enemyAttack[index]) {
+            indexAttacks(index, index, '➖', '➖');
+            createMessage(`It's a draw 😐`);
+        } else if ( (playerAttack[index] === 'FIRE' && enemyAttack[index] === 'PLANT') || (playerAttack[index] === 'WATER' && enemyAttack[index] === 'FIRE') || (playerAttack[index] === 'PLANT' && enemyAttack[index] === 'WATER')) {
+            playerWins++;
+            textPlayerWins.innerHTML = playerWins;
+            indexAttacks(index, index, '✅', '❌');
+            createMessage('You win 🥳');
+        } else {
+            // playerWins--;
+            // textPlayerWins.innerHTML = playerWins;
+            enemyWins++;
+            textEnemyWins.innerHTML = enemyWins;
+            indexAttacks(index, index, '❌', '✅');
+            createMessage('You Lose 😢');
+        }
+    } 
+    
     reviewLives();    
 }
 
 function reviewLives() {
-    if (enemyLives == 0) {
-        createFinalMessage('Congratulations!!! You won the battle.')
-    } else if (playerLives == 0) {
+    if (playerWins === enemyWins) {
+        createFinalMessage("Luck next time, It's a draw")
+    } else if (playerWins > enemyWins) {
+        createFinalMessage('Congratulations!!! You won the battle.');
+    } else if (playerWins < enemyWins) {
         createFinalMessage('Sorry, You lost the battle. Train harder and come back.');
     }
 }
