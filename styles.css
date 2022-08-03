@@ -46,6 +46,7 @@ body {
 
 .cards {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -146,6 +147,12 @@ input:checked + .card-mokepon--fire {
     border-radius: 20px;
     background-color: var(--first);
 }
+.attack-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 .button-attack {
     width: 100px;
     padding: 8px 0px;
@@ -182,8 +189,6 @@ input:checked + .card-mokepon--fire {
         flex-direction: column;
     }
     .attack-button-container {
-        display: flex;
         flex-direction: column;
-        align-items: center;
     }
 }

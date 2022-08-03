@@ -28,9 +28,6 @@ let inputCapipepo;
 let inputRatigueya;
 let playerPet;
 let mokeponAttacks;
-// let buttonFire;
-// let buttonWater;
-// let buttonPlant;
 let buttons;
 let indexPlayerAttack;
 let indexEnemyAttack;
@@ -51,6 +48,9 @@ class Mokepon {
 let hipodoge = new Mokepon('hipodoge', 'water', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
 let capipepo = new Mokepon('capipepo', 'plant', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
 let ratigueya = new Mokepon('ratigueya', 'fire', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
+let langostelvis = new Mokepon('langostelvis', 'fire', './assets/images/mokepons_mokepon_langostelvis_attack.webp', 5);
+let pydos = new Mokepon('pydos', 'water', './assets/images/mokepons_mokepon_pydos_attack.webp', 5);
+let tucapalma = new Mokepon('tucapalma', 'plant', './assets/images/mokepons_mokepon_tucapalma_attack.webp', 5);
 
 hipodoge.attacks.push( 
     {name: '💧', id: 'button-water'},
@@ -76,7 +76,31 @@ ratigueya.attacks.push(
     {name: '🌱', id: 'button-plant'}
 );
 
-mokepons.push(hipodoge, capipepo, ratigueya);
+langostelvis.attacks.push( 
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'}
+);
+
+pydos.attacks.push( 
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🔥', id: 'button-fire'}
+);
+
+tucapalma.attacks.push( 
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'}
+);
+
+mokepons.push(hipodoge, capipepo, ratigueya, langostelvis, pydos, tucapalma);
 
 function startGame() {
     sectionSelectAttack.style.display = 'none';
@@ -98,6 +122,9 @@ function startGame() {
         inputHipodoge = document.getElementById('hipodoge');
         inputCapipepo = document.getElementById('capipepo');
         inputRatigueya = document.getElementById('ratigueya');
+        inputPydos = document.getElementById('pydos');
+        inputTucapalma = document.getElementById('tucapalma');
+        inputLangostelvis = document.getElementById('langostelvis');
     });
     
     buttonPlayerPet.addEventListener('click', selectPlayerPet);
@@ -119,6 +146,15 @@ function selectPlayerPet() {
     } else if (inputRatigueya.checked) {
         namePlayerPet.innerHTML = titleCase(inputRatigueya.id);
         playerPet = inputRatigueya.id;
+    } else if (inputPydos.checked) {
+        namePlayerPet.innerHTML = titleCase(inputPydos.id);
+        playerPet = inputPydos.id;
+    } else if (inputTucapalma.checked) {
+        namePlayerPet.innerHTML = titleCase(inputTucapalma.id);
+        playerPet = inputTucapalma.id;
+    } else if (inputLangostelvis.checked) {
+        namePlayerPet.innerHTML = titleCase(inputLangostelvis.id);
+        playerPet = inputLangostelvis.id;
     } else {
         alert('Select a pet');
         sectionSelectAttack.style.display = 'none';
@@ -127,7 +163,7 @@ function selectPlayerPet() {
         sectionBattles.style.display = 'none';
     }
     
-    if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked){
+    if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked || inputPydos.checked || inputTucapalma.checked || inputLangostelvis.checked) {
         getAttacks(playerPet);
         selectEnemyPet();
     }
@@ -140,7 +176,6 @@ function getAttacks(playerPet) {
             attacks = mokepon.attacks;
         }
     })
-    console.log(attacks);
     showAttacks(attacks);
 }
 
@@ -159,16 +194,13 @@ function attackSecuence() {
         button.addEventListener('click', (event) => {
             if (event.target.textContent === '🔥') {
                 playerAttack.push('FIRE');
-                console.log(playerAttack);
                 button.disabled = true;
             } else if (event.target.textContent === '💧') {
                 playerAttack.push('WATER');
-                console.log(playerAttack);
                 button.disabled = true;
             }
             else if (event.target.textContent === '🌱') {
                 playerAttack.push('PLANT');
-                console.log(playerAttack);
                 button.disabled = true;
             }
             randEnemyAttack();   
@@ -180,7 +212,6 @@ function selectEnemyPet () {
     let randPet = randNum(0, mokepons.length - 1);
     nameEnemyPet.innerHTML = titleCase(mokepons[randPet].name);
     enemyAttackArr = Object.values(mokepons[randPet].attacks);
-    console.log(enemyAttackArr);
     attackSecuence();
     
 }
@@ -194,9 +225,8 @@ function randEnemyAttack() {
     } else if (enemyAttackArr[randAttack].name === '🌱') {
         enemyAttack.push('PLANT');
     }
-    console.log(enemyAttack);
+    enemyAttackArr.splice(randAttack, 1);
     validateBattle();
-    // battle();
 }
 
 function createMessage(battleResult) {
@@ -214,9 +244,6 @@ function createMessage(battleResult) {
 function createFinalMessage(battleResult) {
     restart.style.display = 'block';
     result.innerHTML = battleResult;
-    // buttonFire.disabled = true;
-    // buttonWater.disabled = true;
-    // buttonPlant.disabled = true;
 }
 
 function validateBattle() {
@@ -242,8 +269,6 @@ function battle() {
             indexAttacks(index, index, '✅', '❌');
             createMessage('You win 🥳');
         } else {
-            // playerWins--;
-            // textPlayerWins.innerHTML = playerWins;
             enemyWins++;
             textEnemyWins.innerHTML = enemyWins;
             indexAttacks(index, index, '❌', '✅');
