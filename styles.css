@@ -15,9 +15,7 @@
     --plantSecond:#489754;
     --plantThird: #99c35f;
     --water: #4b3a9a;
-    --waterSecond:#76bfe7;
-
-    
+    --waterSecond:#76bfe7;   
 }
     
 body {
@@ -173,8 +171,8 @@ input:checked + .card-mokepon--fire {
     align-items: center;
 }
 
-#lives-player,
-#lives-enemy {
+#wins-player,
+#wins-enemy {
     margin-bottom: 0;
     font-size: 32px;
 }
