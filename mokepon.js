@@ -127,8 +127,10 @@ function selectPlayerPet() {
         sectionBattles.style.display = 'none';
     }
     
-    getAttacks(playerPet);
-    selectEnemyPet();
+    if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked){
+        getAttacks(playerPet);
+        selectEnemyPet();
+    }
 }
 
 function getAttacks(playerPet) {
