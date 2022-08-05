@@ -197,7 +197,14 @@ function selectPlayerPet() {
         sectionViewMap.style.display = 'none';
     }
     
-    if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked || inputPydos.checked || inputTucapalma.checked || inputLangostelvis.checked) {
+    if (
+        inputHipodoge.checked || 
+        inputCapipepo.checked || 
+        inputRatigueya.checked || 
+        inputPydos.checked || 
+        inputTucapalma.checked ||
+        inputLangostelvis.checked
+    ) {
         getAttacks(playerPet);
         selectEnemyPet();
         startMap();
@@ -369,6 +376,14 @@ function paintCanvas() {
     hipodogeEnemy.drawMokepon();
     capipepoEnemy.drawMokepon();
     ratigueyaEnemy.drawMokepon();
+    if (
+        playerPetObj.velocityX !== 0 ||
+        playerPetObj.velocityY !== 0
+    ) {
+        reviewCollision(hipodogeEnemy);
+        reviewCollision(capipepoEnemy);
+        reviewCollision(ratigueyaEnemy);
+    }
 }
 
 function moveUp() {
@@ -405,6 +420,28 @@ function keyPressed(event) {
             break;
         default:
             break;
+    }
+}
+
+function reviewCollision(enemy) {
+    const topEnemy = enemy.y;
+    const bottomEnemy = enemy.y + enemy.height;
+    const rightEnemy = enemy.x + enemy.width;
+    const leftEnemy = enemy.x;
+
+    const topPlayer = playerPetObj.y;
+    const bottomPlayer = playerPetObj.y + playerPetObj.height;
+    const rightPlayer = playerPetObj.x + playerPetObj.width;
+    const leftPlayer = playerPetObj.x;
+
+    if (
+        !(bottomPlayer < topEnemy ||
+        topPlayer > bottomEnemy ||
+        rightPlayer < leftEnemy ||
+        leftPlayer > rightEnemy)
+    ) {
+        stopMovement();
+        alert(`A savage ${enemy.name} has appeared`);
     }
 }
 
