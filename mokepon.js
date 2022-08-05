@@ -91,6 +91,14 @@ hipodoge.attacks.push(
     {name: '🔥', id: 'button-fire'}
 );
 
+hipodogeEnemy.attacks.push( 
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🔥', id: 'button-fire'}
+);
+
 capipepo.attacks.push( 
     {name: '🌱', id: 'button-plant'},
     {name: '🌱', id: 'button-plant'},
@@ -99,7 +107,23 @@ capipepo.attacks.push(
     {name: '🔥', id: 'button-fire'}
 );
 
+capipepoEnemy.attacks.push( 
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '🌱', id: 'button-plant'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'}
+);
+
 ratigueya.attacks.push( 
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '💧', id: 'button-water'},
+    {name: '🌱', id: 'button-plant'}
+);
+
+ratigueyaEnemy.attacks.push( 
     {name: '🔥', id: 'button-fire'},
     {name: '🔥', id: 'button-fire'},
     {name: '🔥', id: 'button-fire'},
@@ -164,11 +188,8 @@ function startGame() {
 }
 
 function selectPlayerPet() {
-    // sectionSelectAttack.style.display = 'flex';
     sectionSelectPet.style.display = 'none';
-    // sectionMessages.style.display = 'flex';
-    // sectionBattles.style.display = 'grid';
-    sectionViewMap.style.display = 'flex';    
+    sectionViewMap.style.display = 'flex';
     
     if (inputHipodoge.checked) {
         namePlayerPet.innerHTML = titleCase(inputHipodoge.id);
@@ -206,7 +227,6 @@ function selectPlayerPet() {
         inputLangostelvis.checked
     ) {
         getAttacks(playerPet);
-        selectEnemyPet();
         startMap();
     }
 }
@@ -258,10 +278,9 @@ function attackSecuence() {
     });
 }
 
-function selectEnemyPet () {
-    let randPet = randNum(0, mokepons.length - 1);
-    nameEnemyPet.innerHTML = titleCase(mokepons[randPet].name);
-    enemyAttackArr = Object.values(mokepons[randPet].attacks);
+function selectEnemyPet (enemy) {
+    nameEnemyPet.innerHTML = titleCase(enemy.name);
+    enemyAttackArr = Object.values(enemy.attacks);
     attackSecuence();
     
 }
@@ -441,7 +460,13 @@ function reviewCollision(enemy) {
         leftPlayer > rightEnemy)
     ) {
         stopMovement();
+        clearInterval();
         alert(`A savage ${enemy.name} has appeared`);
+        selectEnemyPet(enemy);
+        sectionSelectAttack.style.display = 'flex';
+        sectionMessages.style.display = 'flex';
+        sectionBattles.style.display = 'grid';
+        sectionViewMap.style.display = 'none';    
     }
 }
 
