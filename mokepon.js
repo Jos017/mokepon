@@ -41,6 +41,11 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = './assets/images/mokemap.webp';
 let playerPetObj;
+let mapScaleWidth = 800;
+let mapScaleHeight = 600;
+let mapWidthResponsive = window.innerWidth - 20
+let mapHeightResponsive = mapWidthResponsive * mapScaleHeight / mapScaleWidth;
+const maxMapWidth = 350;
 
 //Creating Mokepon Class
 class Mokepon {
@@ -372,8 +377,13 @@ function titleCase(str) {
 }
 
 function startMap() {
-    map.width = 320;
-    map.height = 240;
+    if (mapWidthResponsive < maxMapWidth) {
+        map.width = mapWidthResponsive;
+        map.height = mapHeightResponsive;
+    } else {
+        map.width = maxMapWidth;
+        map.height = maxMapWidth * mapScaleHeight / mapScaleWidth;
+    }
     getPlayerPet();
     interval = setInterval(paintCanvas, 50);
     window.addEventListener('keydown', keyPressed);
