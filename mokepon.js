@@ -38,6 +38,9 @@ let playerWins = 0;
 let enemyWins = 0;
 let canvas = map.getContext('2d');
 let interval;
+let mapBackground = new Image();
+mapBackground.src = './assets/images/mokemap.webp';
+let playerPetObj;
 
 //Creating Mokepon Class
 class Mokepon {
@@ -151,7 +154,6 @@ function selectPlayerPet() {
     // sectionMessages.style.display = 'flex';
     // sectionBattles.style.display = 'grid';
     sectionViewMap.style.display = 'flex';    
-    startMap();
     
     if (inputHipodoge.checked) {
         namePlayerPet.innerHTML = titleCase(inputHipodoge.id);
@@ -183,7 +185,16 @@ function selectPlayerPet() {
     if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked || inputPydos.checked || inputTucapalma.checked || inputLangostelvis.checked) {
         getAttacks(playerPet);
         selectEnemyPet();
+        startMap();
     }
+}
+
+function getPlayerPet() {
+    mokepons.forEach((mokepon) => {
+        if (playerPet === mokepon.name) {
+            playerPetObj = mokepon;
+        }
+    });
 }
 
 function getAttacks(playerPet) {
@@ -192,7 +203,7 @@ function getAttacks(playerPet) {
         if (playerPet === mokepon.name) {
             attacks = mokepon.attacks;
         }
-    })
+    });
     showAttacks(attacks);
 }
 
@@ -320,39 +331,49 @@ function titleCase(str) {
 }
 
 function startMap() {
-    interval = setInterval(paintPet, 50);
+    map.width = 320;
+    map.height = 240;
+    getPlayerPet();
+    interval = setInterval(paintCanvas, 50);
     window.addEventListener('keydown', keyPressed);
     window.addEventListener('keyup', stopMovement);
 }
 
-function paintPet() {
-    capipepo.x = capipepo.x + capipepo.velocityX;
-    capipepo.y = capipepo.y + capipepo.velocityY;
+function paintCanvas() {
+    playerPetObj.x = playerPetObj.x + playerPetObj.velocityX;
+    playerPetObj.y = playerPetObj.y + playerPetObj.velocityY;
     canvas.clearRect(0, 0, map.width, map.width);
     canvas.drawImage(
-        capipepo.mapImg,
-        capipepo.x,
-        capipepo.y,
-        capipepo.width,
-        capipepo.height
+        mapBackground,
+        0,
+        0,
+        map.width,
+        map.height
+    )
+    canvas.drawImage(
+        playerPetObj.mapImg,
+        playerPetObj.x,
+        playerPetObj.y,
+        playerPetObj.width,
+        playerPetObj.height
     );
 }
 
 function moveUp() {
-    capipepo.velocityY = -5;
+    playerPetObj.velocityY = -5;
 }
 function moveDown() {
-    capipepo.velocityY = 5;
+    playerPetObj.velocityY = 5;
 }
 function moveRight() {
-    capipepo.velocityX = 5;
+    playerPetObj.velocityX = 5;
 }
 function moveLeft() {
-    capipepo.velocityX = -5;
+    playerPetObj.velocityX = -5;
 }
 function stopMovement() {
-    capipepo.velocityX = 0;
-    capipepo.velocityY = 0;
+    playerPetObj.velocityX = 0;
+    playerPetObj.velocityY = 0;
 }
 
 function keyPressed(event) {
