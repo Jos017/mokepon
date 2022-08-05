@@ -44,29 +44,44 @@ let playerPetObj;
 
 //Creating Mokepon Class
 class Mokepon {
-    constructor(name, type, img, hp) {
+    constructor(name, type, img, hp, mapImg = img, x = 10, y = 10) {
         this.name = name;
         this.type = type;
         this.img = img;
         this.hp = hp;
         this.attacks = [];
-        this.x = 20;
-        this.y = 30;
-        this.width = 80;
-        this.height = 80;
+        this.x = x;
+        this.y = y;
+        this.width = 40;
+        this.height = 40;
         this.mapImg = new Image();
-        this.mapImg.src = img;
+        this.mapImg.src = mapImg;
         this.velocityX = 0;
         this.velocityY = 0;
     }
+
+    drawMokepon() {
+        canvas.drawImage(
+            this.mapImg,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        );
+    }
 }
 
-let hipodoge = new Mokepon('hipodoge', 'water', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5);
-let capipepo = new Mokepon('capipepo', 'plant', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5);
-let ratigueya = new Mokepon('ratigueya', 'fire', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5);
+let hipodoge = new Mokepon('hipodoge', 'water', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/images/hipodogeFace.webp', 20, 30);
+let capipepo = new Mokepon('capipepo', 'plant', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5, './assets/images/capipepoFace.webp', 20, 30);
+let ratigueya = new Mokepon('ratigueya', 'fire', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/images/ratigueyaFace.webp', 20, 30);
 let langostelvis = new Mokepon('langostelvis', 'fire', './assets/images/mokepons_mokepon_langostelvis_attack.webp', 5);
 let pydos = new Mokepon('pydos', 'water', './assets/images/mokepons_mokepon_pydos_attack.webp', 5);
 let tucapalma = new Mokepon('tucapalma', 'plant', './assets/images/mokepons_mokepon_tucapalma_attack.webp', 5);
+
+// EnemyPets
+let hipodogeEnemy = new Mokepon('hipodoge', 'water', './assets/images/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/images/hipodogeFace.webp', 80, 120);
+let capipepoEnemy = new Mokepon('capipepo', 'plant', './assets/images/mokepons_mokepon_capipepo_attack.webp', 5, './assets/images/capipepoFace.webp', 150, 95);
+let ratigueyaEnemy = new Mokepon('ratigueya', 'fire', './assets/images/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/images/ratigueyaFace.webp', 200, 190);
 
 hipodoge.attacks.push( 
     {name: '💧', id: 'button-water'},
@@ -350,13 +365,10 @@ function paintCanvas() {
         map.width,
         map.height
     )
-    canvas.drawImage(
-        playerPetObj.mapImg,
-        playerPetObj.x,
-        playerPetObj.y,
-        playerPetObj.width,
-        playerPetObj.height
-    );
+    playerPetObj.drawMokepon();
+    hipodogeEnemy.drawMokepon();
+    capipepoEnemy.drawMokepon();
+    ratigueyaEnemy.drawMokepon();
 }
 
 function moveUp() {
