@@ -21,25 +21,17 @@
                     <img src="./assets/images/mokepons_mokepon_hipodoge_attack.webp" alt="hipodoge" />
                 </figure>
                 <p>HIPODOGE</p>
-            </label>
-            
-            <input type="radio" name="pet" id="capipepo" />
-            <label class="card-mokepon card-mokepon--plant" for="capipepo">
-                <figure>
-                    <img src="./assets/images/mokepons_mokepon_capipepo_attack.webp" alt="capipepo" />
-                </figure>
-                <p>CAPIPEPO</p>
-            </label>
-            
-            <input type="radio" name="pet" id="ratigueya" />
-            <label class="card-mokepon card-mokepon--fire" for="ratigueya">
-                <figure>
-                    <img src="./assets/images/mokepons_mokepon_ratigueya_attack.webp" alt="ratigueya" />
-                </figure>
-                <p>RATIGUEYA</p> -->
-            </label>
+            </label> -->
         </div>
         <button id="button-pet">Select</button>
+    </section>
+    <section id="view-map">
+        <h2 class="subtitle">Move around the map with your Mokepon</h2>
+        <canvas id="map"></canvas>
+        <button onmouseup="stopMovement()" onmousedown="moveUp()">UP</button>
+        <button onmouseup="stopMovement()" onmousedown="moveDown()">DOWN</button>
+        <button onmouseup="stopMovement()" onmousedown="moveRight()">RIGHT</button>
+        <button onmouseup="stopMovement()" onmousedown="moveLeft()">LEFT</button>
     </section>
     <section id="select-attack">
         <h2 class="subtitle">Select your attack:</h2>

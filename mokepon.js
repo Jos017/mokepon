@@ -3,6 +3,9 @@ const sectionSelectAttack = document.getElementById('select-attack');
 const sectionMessages = document.getElementById('messages');
 const sectionBattles = document.getElementById('battles');
 
+const sectionViewMap = document.getElementById('view-map');
+const map = document.getElementById('map');
+
 const restart = document.getElementById('restart');
 
 const buttonPlayerPet = document.getElementById('button-pet');
@@ -33,6 +36,8 @@ let indexPlayerAttack;
 let indexEnemyAttack;
 let playerWins = 0;
 let enemyWins = 0;
+let canvas = map.getContext('2d');
+let interval;
 
 //Creating Mokepon Class
 class Mokepon {
@@ -42,6 +47,14 @@ class Mokepon {
         this.img = img;
         this.hp = hp;
         this.attacks = [];
+        this.x = 20;
+        this.y = 30;
+        this.width = 80;
+        this.height = 80;
+        this.mapImg = new Image();
+        this.mapImg.src = img;
+        this.velocityX = 0;
+        this.velocityY = 0;
     }
 }
 
@@ -107,6 +120,7 @@ function startGame() {
     restart.style.display = 'none';
     sectionMessages.style.display = 'none';
     sectionBattles.style.display = 'none';
+    sectionViewMap.style.display = 'none';
 
     mokepons.forEach(mokepon => {
         mokeponsOptions = `
@@ -132,10 +146,12 @@ function startGame() {
 }
 
 function selectPlayerPet() {
-    sectionSelectAttack.style.display = 'flex';
+    // sectionSelectAttack.style.display = 'flex';
     sectionSelectPet.style.display = 'none';
-    sectionMessages.style.display = 'flex';
-    sectionBattles.style.display = 'grid';
+    // sectionMessages.style.display = 'flex';
+    // sectionBattles.style.display = 'grid';
+    sectionViewMap.style.display = 'flex';    
+    startMap();
     
     if (inputHipodoge.checked) {
         namePlayerPet.innerHTML = titleCase(inputHipodoge.id);
@@ -161,6 +177,7 @@ function selectPlayerPet() {
         sectionSelectPet.style.display = 'flex';
         sectionMessages.style.display = 'none';
         sectionBattles.style.display = 'none';
+        sectionViewMap.style.display = 'none';
     }
     
     if (inputHipodoge.checked || inputCapipepo.checked || inputRatigueya.checked || inputPydos.checked || inputTucapalma.checked || inputLangostelvis.checked) {
@@ -300,6 +317,62 @@ function restartGame() {
 function titleCase(str) {
     let str2 = str[0].toUpperCase() + str.slice(1).toLowerCase();
     return str2;
+}
+
+function startMap() {
+    interval = setInterval(paintPet, 50);
+    window.addEventListener('keydown', keyPressed);
+    window.addEventListener('keyup', stopMovement);
+}
+
+function paintPet() {
+    capipepo.x = capipepo.x + capipepo.velocityX;
+    capipepo.y = capipepo.y + capipepo.velocityY;
+    canvas.clearRect(0, 0, map.width, map.width);
+    canvas.drawImage(
+        capipepo.mapImg,
+        capipepo.x,
+        capipepo.y,
+        capipepo.width,
+        capipepo.height
+    );
+}
+
+function moveUp() {
+    capipepo.velocityY = -5;
+}
+function moveDown() {
+    capipepo.velocityY = 5;
+}
+function moveRight() {
+    capipepo.velocityX = 5;
+}
+function moveLeft() {
+    capipepo.velocityX = -5;
+}
+function stopMovement() {
+    capipepo.velocityX = 0;
+    capipepo.velocityY = 0;
+}
+
+function keyPressed(event) {
+    console.log(event.key);
+    switch(event.key) {
+        case 'ArrowUp':
+            moveUp();
+            break;
+        case 'ArrowRight': 
+            moveRight();
+            break;
+        case 'ArrowDown':
+            moveDown();
+            break;
+        case 'ArrowLeft':
+            moveLeft();
+            break;
+        default:
+            break;
+    }
 }
 
 window.addEventListener('load', startGame);

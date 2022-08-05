@@ -184,6 +184,15 @@ input:checked + .card-mokepon--fire {
     font-size: 32px;
 }
 
+#view-map {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#map {
+    border: 2px solid var(--white);
+}
+
 @media (max-width: 360px) {
     .cards {
         flex-direction: column;
