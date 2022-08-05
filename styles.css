@@ -189,6 +189,14 @@ input:checked + .card-mokepon--fire {
     justify-content: center;
     align-items: center;
 }
+#view-map button {
+    width: 100px;
+    padding: 8px 0px;
+    border-radius: 5px;
+    background-color: var(--third);
+    font-family: inherit;
+    font-size: 16px;
+}
 #map {
     border: 2px solid var(--white);
 }
@@ -199,5 +207,10 @@ input:checked + .card-mokepon--fire {
     }
     .attack-button-container {
         flex-direction: column;
+    }
+    #view-map div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
