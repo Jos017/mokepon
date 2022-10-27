@@ -242,7 +242,10 @@ function startGame() {
 
 async function joinGame() {
   const res = await fetch("http://localhost:8080/unirse");
-  console.log(res);
+  if (res.ok) {
+    const resText = await res.text();
+    console.log(resText);
+  }
 }
 
 function selectPlayerPet() {
