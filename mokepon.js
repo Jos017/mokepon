@@ -21,6 +21,7 @@ const resultEnemyAttack = document.getElementById("attack-enemy");
 const textPlayerWins = document.getElementById("wins-player");
 const textEnemyWins = document.getElementById("wins-enemy");
 
+let jugadorId = null;
 let mokepons = [];
 let mokeponsOptions;
 let playerAttack = [];
@@ -245,6 +246,7 @@ async function joinGame() {
   if (res.ok) {
     const resText = await res.text();
     console.log(resText);
+    jugadorId = resText;
   }
 }
 
@@ -287,9 +289,23 @@ function selectPlayerPet() {
     inputTucapalma.checked ||
     inputLangostelvis.checked
   ) {
+    selectMokepon(playerPet);
     getAttacks(playerPet);
     startMap();
   }
+}
+
+async function selectMokepon(pet) {
+  await fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      mokepon: pet,
+    }),
+  });
+  console.log("data sent");
 }
 
 function getPlayerPet() {
