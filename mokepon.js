@@ -295,8 +295,8 @@ function selectPlayerPet() {
   }
 }
 
-async function selectMokepon(pet) {
-  await fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+function selectMokepon(pet) {
+  fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -305,7 +305,6 @@ async function selectMokepon(pet) {
       mokepon: pet,
     }),
   });
-  console.log("data sent");
 }
 
 function getPlayerPet() {
@@ -471,6 +470,9 @@ function paintCanvas() {
   canvas.clearRect(0, 0, map.width, map.width);
   canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
   playerPetObj.drawMokepon();
+
+  sendPosition(playerPetObj.x, playerPetObj.y);
+
   hipodogeEnemy.drawMokepon();
   capipepoEnemy.drawMokepon();
   ratigueyaEnemy.drawMokepon();
@@ -479,6 +481,19 @@ function paintCanvas() {
     reviewCollision(capipepoEnemy);
     reviewCollision(ratigueyaEnemy);
   }
+}
+
+function sendPosition(x, y) {
+  fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      x,
+      y,
+    }),
+  });
 }
 
 function moveUp() {
